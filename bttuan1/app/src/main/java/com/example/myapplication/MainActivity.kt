@@ -1,4 +1,6 @@
 package com.example.myapplication
+// Đặt ở phần đầu của tệp MainActivity.kt
+import com.example.myapplication.ui.theme.MyApplicationTheme
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.ui.theme.MyApplicationTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -116,5 +117,4 @@ fun ProfileScreen() {
         }
     }
 }
-
 
