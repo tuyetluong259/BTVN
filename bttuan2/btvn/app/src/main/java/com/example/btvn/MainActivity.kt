@@ -15,6 +15,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.btvn.ui.theme.BtvnTheme
+import androidx.compose.ui.tooling.preview.Preview
 
 // Lớp MainActivity chứa điểm khởi đầu của ứng dụng
 class MainActivity : ComponentActivity() {
@@ -171,4 +172,11 @@ fun kiemTraDoTuoi(ten: String, tuoi: Int): String {
 
     // Hiển thị thông tin và kết quả kiểm tra
     return "Thông tin: $ten, $tuoi tuổi.\nPhân loại: $ten thuộc nhóm $loaiTuoi."
+}
+@Preview(showBackground = true)
+@Composable
+fun PreviewTuan02() {
+    BtvnTheme {
+        Tuan02ThucHanh01Screen()
+    }
 }

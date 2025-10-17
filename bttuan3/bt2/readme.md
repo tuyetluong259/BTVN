@@ -1,0 +1,1 @@
+![ketqua.png](app/src/main/res/drawable/ketqua.png)
