@@ -17,11 +17,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.btvn.ManHinh // <-- IMPORT QUAN TRỌNG: Cần thiết để điều hướng
+import com.example.btvn.R // Cần import R để nhận diện tài nguyên
 
-// ********** LƯU Ý QUAN TRỌNG **********
-// Đảm bảo file img2.png đã nằm trong thư mục res/drawable
-val LOGO_RESOURCE_ID = R.drawable.img_2 // ĐÃ SỬA DỤNG TÊN RESOURCE ĐÚNG LÀ img_2
-// ************************************
+val LOGO_RESOURCE_ID = R.drawable.img_2 // Đảm bảo file img_2.png/webp đã có
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,22 +28,13 @@ fun WelcomeScreen(navController: NavController) {
         topBar = {
             TopAppBar(
                 title = { /* Không có tiêu đề chính */ },
-                // Thêm thông tin người dùng ở góc phải
                 actions = {
                     Column(
                         horizontalAlignment = Alignment.End,
                         modifier = Modifier.padding(end = 16.dp)
                     ) {
-                        Text(
-                            text = "Nguyễn Văn A",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
-                        Text(
-                            text = "2342312323",
-                            fontSize = 12.sp,
-                            color = Color.Gray
-                        )
+                        Text(text = "Luong Thi Anh Tuyet", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Text(text = "012345678", fontSize = 12.sp, color = Color.Gray)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
@@ -58,15 +47,14 @@ fun WelcomeScreen(navController: NavController) {
                 .fillMaxSize()
                 .padding(horizontal = 32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            // Giữ mặc định: verticalArrangement = Arrangement.Top
         ) {
-            // Phần Spacer/Placeholder để đẩy nội dung xuống dưới TopAppBar
-            Spacer(modifier = Modifier.height(32.dp))
 
-            // Phần Logo và Text
+            // 1. SPACER TRÊN: Trọng lượng 1.5f tạo khoảng trống lớn hơn ở trên
+            Spacer(modifier = Modifier.weight(1.5f))
+
+            // --- Phần Logo và Text (Nội dung chính) ---
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-
-                // SỬ DỤNG IMAGE VỚI RESOURCE ID R.drawable.img_2
                 Image(
                     painter = painterResource(id = LOGO_RESOURCE_ID),
                     contentDescription = "Jetpack Compose Logo",
@@ -94,19 +82,22 @@ fun WelcomeScreen(navController: NavController) {
                 )
             }
 
-            // Nút "I'm ready" (được căn sát đáy Scaffold)
+            // Spacer cố định giữa Text và Nút
+            Spacer(modifier = Modifier.height(64.dp))
+
+            // Nút "I'm ready"
             Button(
                 onClick = {
-                    // LỆNH ĐIỀU HƯỚNG CHÍNH XÁC: Từ HOME qua DANH_SACH
+                    // Điều hướng từ Home qua Danh sách
                     navController.navigate(ManHinh.DANH_SACH)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
-                    .padding(bottom = 24.dp), // Thêm padding dưới cùng
+                    .padding(bottom = 0.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1E88E5) // Màu xanh dương
+                    containerColor = Color(0xFF1E88E5)
                 )
             ) {
                 Text(
@@ -115,6 +106,12 @@ fun WelcomeScreen(navController: NavController) {
                     fontWeight = FontWeight.Bold
                 )
             }
+
+            // 2. SPACER DƯỚI: Trọng lượng 1f tạo khoảng trống nhỏ hơn ở dưới, đẩy nút lên
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Thêm padding cố định ở đáy (ví dụ: navigation bar padding)
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
