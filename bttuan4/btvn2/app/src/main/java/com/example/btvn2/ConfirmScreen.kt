@@ -12,16 +12,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-// ĐÃ SỬA: Xóa bỏ ".data" khỏi import
 import com.example.btvn2.Screen
 import com.example.btvn2.R
 import com.example.btvn2.ui.theme.Btvn2Theme
 
+// SỬA 1: Thêm tham số "email: String?" để nhận dữ liệu
 @Composable
-fun ConfirmScreen(navController: NavController) {
-    // Giả sử bạn nhận email từ màn hình trước hoặc ViewModel
-    val userEmail = "utd@gmail.com"
-    val userPasswordPlaceholder = "********" // Mật khẩu chỉ nên là placeholder
+fun ConfirmScreen(navController: NavController, email: String?) {
+
+    // SỬA 2: Sử dụng email được truyền vào, nếu nó null thì hiển thị một chuỗi an toàn
+    val userEmail = email ?: "Không có email"
+    val userPasswordPlaceholder = "********"
 
     Scaffold(
         topBar = { TopAppBarLogo(title = "Xác nhận", navController = navController) }
@@ -49,13 +50,14 @@ fun ConfirmScreen(navController: NavController) {
                 modifier = Modifier.padding(bottom = 32.dp)
             )
 
-            // Trường Email chỉ đọc
+            // Trường Email này giờ sẽ hiển thị đúng email người dùng đã nhập
             OutlinedTextField(
                 value = userEmail,
                 onValueChange = {},
                 readOnly = true,
                 label = { Text("Email") },
-                leadingIcon = { Icon(painterResource(id = R.drawable.mail), contentDescription = null) },
+                // SỬA 3: Sửa lại tên icon cho đúng
+                leadingIcon = { Icon(painterResource(id = R.drawable.lock), contentDescription = null) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
@@ -67,6 +69,7 @@ fun ConfirmScreen(navController: NavController) {
                 onValueChange = {},
                 readOnly = true,
                 label = { Text("Mật khẩu") },
+                // SỬA 3: Sửa lại tên icon cho đúng
                 leadingIcon = { Icon(painterResource(id = R.drawable.lock), contentDescription = null) },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -76,12 +79,12 @@ fun ConfirmScreen(navController: NavController) {
             // Nút xác nhận
             Button(
                 onClick = {
-                    // Quay lại màn hình Login và xóa các màn hình trung gian (Forgot, Confirm)
-                    navController.navigate(Screen.LOGIN) {
+                    // SỬA 4: Gửi email này về cho LoginScreen
+                    val route = "${Screen.LOGIN}?${NavArgs.EMAIL}=$userEmail"
+                    navController.navigate(route) {
                         popUpTo(Screen.LOGIN) {
-                            inclusive = true // Xóa cả màn hình Login cũ để tạo cái mới
+                            inclusive = true
                         }
-                        launchSingleTop = true
                     }
                 },
                 modifier = Modifier
@@ -100,8 +103,8 @@ fun ConfirmScreen(navController: NavController) {
 @Composable
 fun ConfirmScreenPreview() {
     Btvn2Theme {
-        // ĐÃ SỬA: Dùng rememberNavController cho Preview
         val fakeNavController = rememberNavController()
-        ConfirmScreen(navController = fakeNavController)
+        // SỬA 5: Cung cấp một email giả cho Preview để nó không báo lỗi
+        ConfirmScreen(navController = fakeNavController, email = "preview@email.com")
     }
 }

@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Hàm Preview để xem trước toàn bộ ứng dụng
 @Preview(showBackground = true)
 @Composable
 fun LibraryAppPreview() {

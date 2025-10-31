@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
+import androidx.navigation.compose.rememberNavController
 // --- Header chứa Logo UTH SmartTasks ---
 @Composable
 fun LogoHeader() {
@@ -104,9 +104,8 @@ fun LogoHeaderPreview() {
 @Composable
 fun TopAppBarLogoPreview() {
     MaterialTheme {
-        // Tạo một NavController giả cho mục đích Preview
-        val fakeNavController = NavController(LocalContext.current)
+        // SỬA Ở ĐÂY: Dùng rememberNavController() cho Preview
+        val fakeNavController = rememberNavController()
         TopAppBarLogo(title = "Màn hình chi tiết", navController = fakeNavController)
     }
 }
-

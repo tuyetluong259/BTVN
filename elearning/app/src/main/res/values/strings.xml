@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="lives_left">Lives left: %d</string>
+    <string name="incorrect_guesses">Incorrect guesses: %s</string>
+
+</resources>

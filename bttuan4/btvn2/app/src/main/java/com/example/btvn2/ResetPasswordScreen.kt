@@ -1,12 +1,13 @@
-package com.example.btvn2 // SỬA 1: Sửa lại package cho đúng
+package com.example.btvn2
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-// import androidx.compose.runtime.getValue // XÓA: Không cần thiết
-// import androidx.compose.runtime.setValue // XÓA: Không cần thiết
+// XÓA: Các import này không cần thiết
+// import androidx.compose.runtime.getValue
+// import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.btvn2.R
-// SỬA 3: Xóa bỏ ".data" khỏi import
 import com.example.btvn2.Screen
 import com.example.btvn2.ui.theme.Btvn2Theme
 
@@ -48,7 +48,7 @@ fun ResetPasswordScreen(navController: NavController, email: String, code: Strin
             )
 
             Text(
-                text = "Mật khẩu mới của bạn phải khác với các mật khẩu đã dùng trước đó. (Email: $email, Code: $code)",
+                text = "Mật khẩu mới của bạn phải khác với các mật khẩu đã dùng trước đó.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 32.dp),
@@ -61,6 +61,7 @@ fun ResetPasswordScreen(navController: NavController, email: String, code: Strin
                 onValueChange = { newPassword = it },
                 label = { Text("Mật khẩu mới") },
                 visualTransformation = PasswordVisualTransformation(),
+                // SỬA 2: Sửa lại tên icon cho đúng
                 leadingIcon = { Icon(painterResource(id = R.drawable.lock), contentDescription = null) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,6 +74,7 @@ fun ResetPasswordScreen(navController: NavController, email: String, code: Strin
                 onValueChange = { confirmPassword = it },
                 label = { Text("Xác nhận Mật khẩu") },
                 visualTransformation = PasswordVisualTransformation(),
+                // SỬA 2: Sửa lại tên icon cho đúng
                 leadingIcon = { Icon(painterResource(id = R.drawable.loclopen), contentDescription = null) },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -83,9 +85,9 @@ fun ResetPasswordScreen(navController: NavController, email: String, code: Strin
             Button(
                 onClick = {
                     if (newPassword.isNotBlank() && newPassword == confirmPassword) {
-                        // SỬA 2: Sửa lại logic điều hướng cho đúng luồng
-                        // Đơn giản là đi tới màn hình CONFIRM
-                        navController.navigate(Screen.CONFIRM)
+                        // SỬA 1: Gửi email sang cho ConfirmScreen
+                        val route = "${Screen.CONFIRM}?${NavArgs.EMAIL}=$email"
+                        navController.navigate(route)
                     }
                 },
                 modifier = Modifier
@@ -103,7 +105,6 @@ fun ResetPasswordScreen(navController: NavController, email: String, code: Strin
 @Preview(showBackground = true, name = "Reset Password Preview")
 @Composable
 fun ResetPasswordScreenPreview() {
-    // SỬA 4: Sửa lại tên Theme cho đúng
     Btvn2Theme {
         val fakeNavController = rememberNavController()
         ResetPasswordScreen(
